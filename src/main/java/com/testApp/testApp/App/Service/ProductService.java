@@ -27,10 +27,9 @@ public class ProductService {
 
 
    public void registerUser(Admin admin){
-//        String hashedPassword = getHashedPassword(admin.getPassword());
-//        if(!hashedPassword.isEmpty()){
+
             admin.setPassword(admin.getPassword());
-//        }
+
        adminRepo.save(admin);
 
    }
