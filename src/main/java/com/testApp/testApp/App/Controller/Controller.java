@@ -18,9 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +58,10 @@ public class Controller {
 
     @GetMapping("/getTaskDetails")
     public ItemsContainer getData(){
-        return  productService.getTaksDetails();
+
+        String username = userService.getSessionInfo();
+
+        return  productService.getTaksDetails(username);
     }
 
     @GetMapping("/deleteTaskDetails/{id}")

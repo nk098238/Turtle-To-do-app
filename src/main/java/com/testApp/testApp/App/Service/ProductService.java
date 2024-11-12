@@ -4,14 +4,17 @@ package com.testApp.testApp.App.Service;
 import com.testApp.testApp.App.Data.ItemsContainer;
 import com.testApp.testApp.App.Entity.Admin;
 import com.testApp.testApp.App.Entity.Tasks;
+import com.testApp.testApp.App.Entity.User;
 import com.testApp.testApp.App.Model.Products;
 import com.testApp.testApp.App.Repository.AdminRepository;
 import com.testApp.testApp.App.Repository.LaptopRepository;
 import com.testApp.testApp.App.Repository.TasksRepository;
+import com.testApp.testApp.App.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -24,6 +27,11 @@ public class ProductService {
     @Autowired
     private TasksRepository taskRepo;
 
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private UserService userService;
 
 
    public void registerUser(Admin admin){
@@ -45,18 +53,33 @@ public class ProductService {
 
    }
 
-   public ItemsContainer getTaksDetails(){
+   public ItemsContainer getTaksDetails(String username){
+       if(!username.isEmpty()) {
 
-       List<Tasks> tasks = taskRepo.findAll();
-       int size = tasks.size();
+           Optional<User> user = userRepo.findByUsername(username);
 
-       return new ItemsContainer(tasks,size);
+           if(user.isPresent()) {
+               List<Tasks> activeTasks = taskRepo.findByFkUserId(user.get().getId());
+
+               int size = activeTasks.size();
+
+               return new ItemsContainer(activeTasks, size);
+           }
+       }
+           return null;
+
    }
 
    public String saveTaskDetails(Tasks tasks){
-        if(!Objects.isNull(tasks)){
-            taskRepo.save(tasks);
-            return "SUCCESS";
+
+       String username = userService.getSessionInfo();
+        if(!Objects.isNull(tasks) && !username.isEmpty()){
+            Optional<User> user = userRepo.findByUsername(username);
+            if(user.isPresent()) {
+                tasks.setFkUserId(user.get().getId());
+                taskRepo.save(tasks);
+                return "SUCCESS";
+            }
         }
 
         return "FAILURE";

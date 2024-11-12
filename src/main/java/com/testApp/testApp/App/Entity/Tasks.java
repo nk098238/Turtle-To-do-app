@@ -30,5 +30,16 @@ public class Tasks {
     @Column(name="created_by")
     private String createdBy;
 
+    public Long getFkUserId() {
+        return fkUserId;
+    }
+
+    public void setFkUserId(Long fkUserId) {
+        this.fkUserId = fkUserId;
+    }
+
+    @Column(name="fk_user_id")
+    private Long fkUserId;
+
 
 }
