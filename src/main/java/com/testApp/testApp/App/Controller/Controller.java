@@ -2,10 +2,7 @@ package com.testApp.testApp.App.Controller;
 
 
 import com.testApp.testApp.App.Data.ItemsContainer;
-import com.testApp.testApp.App.Entity.Admin;
-import com.testApp.testApp.App.Entity.Laptop;
-import com.testApp.testApp.App.Entity.Tasks;
-import com.testApp.testApp.App.Entity.User;
+import com.testApp.testApp.App.Entity.*;
 import com.testApp.testApp.App.Model.Products;
 import com.testApp.testApp.App.Repository.AdminRepository;
 import com.testApp.testApp.App.Repository.LaptopRepository;
@@ -62,6 +59,11 @@ public class Controller {
         String username = userService.getSessionInfo();
 
         return  productService.getTaksDetails(username);
+    }
+
+    @GetMapping("/getSubtaskDetails/{taskId}")
+    public List<SubTasks> getSubTasks(@PathVariable("taskId") Integer taskId){
+        return productService.getSubTasksDetails(taskId);
     }
 
     @GetMapping("/deleteTaskDetails/{id}")

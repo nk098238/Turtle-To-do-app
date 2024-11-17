@@ -3,13 +3,11 @@ package com.testApp.testApp.App.Service;
 
 import com.testApp.testApp.App.Data.ItemsContainer;
 import com.testApp.testApp.App.Entity.Admin;
+import com.testApp.testApp.App.Entity.SubTasks;
 import com.testApp.testApp.App.Entity.Tasks;
 import com.testApp.testApp.App.Entity.User;
 import com.testApp.testApp.App.Model.Products;
-import com.testApp.testApp.App.Repository.AdminRepository;
-import com.testApp.testApp.App.Repository.LaptopRepository;
-import com.testApp.testApp.App.Repository.TasksRepository;
-import com.testApp.testApp.App.Repository.UserRepository;
+import com.testApp.testApp.App.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.scheduling.config.Task;
@@ -32,6 +30,9 @@ public class ProductService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SubTaskRepository subTasksrepo;
 
 
    public void registerUser(Admin admin){
@@ -83,6 +84,10 @@ public class ProductService {
         }
 
         return "FAILURE";
+   }
+
+   public List<SubTasks> getSubTasksDetails(Integer taskId){
+      return  subTasksrepo.findByFkTaskId(taskId);
    }
 
 
