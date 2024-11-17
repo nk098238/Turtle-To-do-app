@@ -24,6 +24,9 @@ public class SubTasks {
     @Column(name = "sub_task_name")
     private String subTaskName;
 
+    @Column(name="sub_task_desc")
+    private String subTaskDesc;
+
     @Column(name = "total_estimated_time")
     private Integer totalEstimatedTime;
 
@@ -32,4 +35,6 @@ public class SubTasks {
 
     @Column(name= "created_by")
     private String createdBy;
+
+
 }
