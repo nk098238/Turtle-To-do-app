@@ -76,7 +76,10 @@ public class Controller {
         return productService.saveTaskDetails(tasks);
     }
 
-
+    @PostMapping("/saveSubTaskItem")
+    public String saveSubTaskItem(@RequestBody SubTasks subTasks){
+        return productService.saveSubTaskDetails(subTasks);
+    }
 
     @RequestMapping("/getLaptopDetails")
     public List<Laptop> about(){
@@ -100,9 +103,5 @@ public class Controller {
         productService.registerUser(admin);
         return "success";
     }
-
-
-
-
 
 }

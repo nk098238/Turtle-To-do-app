@@ -86,6 +86,18 @@ public class ProductService {
         return "FAILURE";
    }
 
+   public String saveSubTaskDetails(SubTasks subTasks){
+
+       try {
+           SubTasks savedSubTask = subTasksrepo.save(subTasks);
+           return "SUCCESS";
+       }catch (Exception e){
+           return "FAILURE";
+       }
+
+   }
+
+
    public List<SubTasks> getSubTasksDetails(Integer taskId){
       return  subTasksrepo.findByFkTaskId(taskId);
    }
