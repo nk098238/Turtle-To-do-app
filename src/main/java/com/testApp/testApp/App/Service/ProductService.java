@@ -2,10 +2,7 @@ package com.testApp.testApp.App.Service;
 
 
 import com.testApp.testApp.App.Data.ItemsContainer;
-import com.testApp.testApp.App.Entity.Admin;
-import com.testApp.testApp.App.Entity.SubTasks;
-import com.testApp.testApp.App.Entity.Tasks;
-import com.testApp.testApp.App.Entity.User;
+import com.testApp.testApp.App.Entity.*;
 import com.testApp.testApp.App.Model.Products;
 import com.testApp.testApp.App.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,9 @@ public class ProductService {
 
     @Autowired
     private SubTaskRepository subTasksrepo;
+
+    @Autowired
+    private ModuleRepository moduleRepo;
 
 
    public void registerUser(Admin admin){
@@ -100,6 +100,19 @@ public class ProductService {
 
    public List<SubTasks> getSubTasksDetails(Integer taskId){
       return  subTasksrepo.findByFkTaskId(taskId);
+   }
+
+   public List<Modules> getModuleDetails(Integer fkSubTaskId){
+       return moduleRepo.findByFkSubTaskId(fkSubTaskId);
+   }
+
+   public String saveModule(Modules module){
+       try {
+           Modules modules = moduleRepo.save(module);
+           return "SUCCESS";
+       }catch (Exception e){
+           return "FAILURE";
+       }
    }
 
 

@@ -104,4 +104,14 @@ public class Controller {
         return "success";
     }
 
+    @PostMapping("/getModules/{id}")
+    public List<Modules> getModules(@PathVariable("id") Integer fkSubTaskId){
+        return productService.getModuleDetails(fkSubTaskId);
+    }
+
+    @PostMapping("/saveModule")
+    public String saveModule(@RequestBody Modules modules){
+        return productService.saveModule(modules);
+    }
+
 }
