@@ -23,6 +23,7 @@ import org.springframework.web.client.ResourceAccessException;
 import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestControllerAdvice
 @RestController
@@ -112,6 +113,12 @@ public class Controller {
     @PostMapping("/saveModule")
     public String saveModule(@RequestBody Modules modules){
         return productService.saveModule(modules);
+    }
+
+    @PostMapping("/logEffort")
+    public String logEfforts(@RequestBody Map<String, Integer> obj){
+
+        return productService.logEffort(obj);
     }
 
 }

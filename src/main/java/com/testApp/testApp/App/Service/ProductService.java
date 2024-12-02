@@ -115,6 +115,20 @@ public class ProductService {
        }
    }
 
+   public String logEffort(Map<String,Integer> obj){
+       
+       if(obj != null && obj.get("timeLogged") != null && obj.get("moduleId") != null) {
+           Integer timeLogged = obj.get("timeLogged");
+           Integer moduleId = obj.get("moduleId");
+          int result = moduleRepo.updateTimeLoggedByModuleId(moduleId,timeLogged);
+          if(result > 0 ){
+              return "SUCCESS";
+          }
+       }
+           return "FAILURE";
+
+   }
+
 
 
 }
