@@ -129,6 +129,17 @@ public class ProductService {
 
    }
 
+   public String crateUser(User user){
+       if(!user.toString().isEmpty()){
+           User result = userRepo.save(user);
+           if(result.getId()!=null){
+               return "SUCCESS";
+           }
+
+       }
+       return "FAILURE";
+   }
+
 
 
 }

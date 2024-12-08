@@ -121,4 +121,9 @@ public class Controller {
         return productService.logEffort(obj);
     }
 
+    @PostMapping("/register")
+    public String signUp(@RequestBody User user){
+        return productService.crateUser(user);
+    }
+
 }

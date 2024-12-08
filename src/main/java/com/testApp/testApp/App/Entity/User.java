@@ -26,6 +26,39 @@ public class User {
     private String password;
 
 
+    @Column(name = "firstname")
+    private String firstName;
+
+    @Column(name = "lastname", nullable = true)
+    private String lastName;
+
+    @Column(name = "phone")
+    private Integer phone;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
+
     public Long getId() {
         return id;
     }
