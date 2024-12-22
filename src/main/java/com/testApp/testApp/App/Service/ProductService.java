@@ -10,11 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     @Autowired
     private AdminRepository adminRepo;
@@ -55,18 +60,23 @@ public class ProductService {
    }
 
    public ItemsContainer getTaksDetails(String username){
+       logger.info("inside getTasksDetails");
        if(!username.isEmpty()) {
 
            Optional<User> user = userRepo.findByUsername(username);
 
            if(user.isPresent()) {
+               logger.info("user is present");
                List<Tasks> activeTasks = taskRepo.findByFkUserId(user.get().getId());
 
                int size = activeTasks.size();
 
+               logger.info("no of active task :"+ size);
+
                return new ItemsContainer(activeTasks, size);
            }
        }
+           logger.info("no active task found");
            return null;
 
    }
@@ -129,7 +139,7 @@ public class ProductService {
 
    }
 
-   public String crateUser(User user){
+   public String    crateUser(User user){
        if(!user.toString().isEmpty()){
            User result = userRepo.save(user);
            if(result.getId()!=null){
